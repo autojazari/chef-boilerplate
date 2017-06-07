@@ -57,3 +57,9 @@ mount '/dev/shm' do
   action %i(mount enable)
   only_if { %w(rhel fedora centos amazon).include? platform }
 end
+
+execute 'remount_dev_shm' do
+  command 'mount -o remount,nodev,nosuid,noexec /dev/shm'
+  action :nothing
+  only_if { %w(amazon).include? platform }
+end

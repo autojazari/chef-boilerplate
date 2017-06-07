@@ -1,0 +1,90 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-6.8
+  - name: centos-7.3
+
+suites:
+  - name: centos7
+    excludes:
+      - centos-6.8
+    verifier:
+      inspec_tests:
+          - name: centos7
+            path: test/integration/centos7/inspec/controls
+    run_list:
+      - recipe[auditd]
+      - recipe[stig::auditd]
+      - recipe[stig::auditd_rules]
+      - recipe[stig::fstab_tmp]
+      - recipe[stig::aide]
+      - recipe[stig::tcp_wrappers]
+      - recipe[stig::boot_settings]
+      - recipe[stig::proc_hard]
+      - recipe[stig::cis]
+      - recipe[stig::avahi_daemon]
+      - recipe[stig::ipv6]
+      - recipe[stig::dhcp]
+      - recipe[stig::mail_transfer_agent]
+      - recipe[stig::hosts]
+      - recipe[stig::rsyslog]
+      - recipe[logrotate::global]
+      - recipe[stig::sshd_config]
+      - recipe[stig::system_auth]
+      - recipe[stig::login_defs]
+      - recipe[stig::login_banner]
+      - recipe[stig::file_permissions]
+      - recipe[stig::audits]
+      - recipe[stig::audit_scripts]
+      - recipe[stig::su_restriction]
+    attributes: {
+      "auditd" : {
+        "ruleset" : "stig"
+      }
+    }
+
+  - name: centos6
+    excludes:
+      - centos-7.3
+    verifier:
+      inspec_tests:
+          - name: centos6
+            path: test/integration/centos6/inspec/controls
+    run_list:
+      - recipe[auditd]
+      - recipe[stig::auditd]
+      - recipe[stig::auditd_rules]
+      - recipe[stig::fstab_tmp]
+      - recipe[stig::aide]
+      - recipe[stig::tcp_wrappers]
+      - recipe[stig::boot_settings]
+      - recipe[stig::proc_hard]
+      - recipe[stig::cis]
+      - recipe[stig::avahi_daemon]
+      - recipe[stig::ipv6]
+      - recipe[stig::dhcp]
+      - recipe[stig::mail_transfer_agent]
+      - recipe[stig::hosts]
+      - recipe[stig::rsyslog]
+      - recipe[logrotate::global]
+      - recipe[stig::sshd_config]
+      - recipe[stig::system_auth]
+      - recipe[stig::login_defs]
+      - recipe[stig::login_banner]
+      - recipe[stig::file_permissions]
+      - recipe[stig::audits]
+      - recipe[stig::audit_scripts]
+      - recipe[stig::su_restriction]
+    attributes: {
+      "auditd" : {
+        "ruleset" : "stig"
+      }
+    }

@@ -1,0 +1,26 @@
+---
+driver:
+  name: docker
+  provision_command: curl -L http://www.opscode.com/chef/install.sh | bash
+  use_sudo: false
+  socket: <%= ENV['DOCKER_HOST'] %>
+  binary: /usr/local/bin/docker
+  dns:  
+  - 8.8.8.8
+  - 8.8.4.4
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[stig::default]
+      - recipe[stig::auditd]
+  - name: noauditd
+    run_list:
+      - recipe[stig::default]
+    

@@ -1,0 +1,7 @@
+{
+  "name": "cis",
+  "description": "",
+  "run_list": [
+     "stig"
+  ]
+}

@@ -19,7 +19,7 @@ else
   ipv6onoff = 'on'
 end
 
-if %w(rhel fedora centos redhat x86_64-linux).include?(node['platform'])
+if %w(rhel fedora centos redhat amazon).include?(node['platform'])
   # Install IPTables, turn off Firewalld
   if node['platform_version'][0, 1].to_i >= 7
 

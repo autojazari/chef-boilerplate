@@ -41,7 +41,7 @@ execute 'init_aide' do
   command "/usr/sbin/aide --init -B 'database_out=file:/var/lib/aide/aide.db.gz'"
   creates '/var/lib/aide/aide.db.gz'
   action :run
-  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
 end
 
 cron 'aide_cron' do

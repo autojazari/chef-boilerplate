@@ -29,16 +29,16 @@ execute 'Disable avahi-daemon via sysctl' do
   action :run
   only_if "systemctl >/dev/null 2>&1 && /usr/bin/systemctl list-unit-files | grep -q 'avahi'"
   not_if "systemctl >/dev/null 2>&1 && /usr/bin/systemctl is-enabled avahi-daemon | grep -q 'disabled'"
-  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
   only_if { major_version >= 7 }
 end
 
 package 'avahi' do
   action :remove
-  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
 end
 
 package 'avahi-daemon' do
   action :purge
-  only_if { %w(debian ubuntu redhat x86_64-linux).include? platform }
+  only_if { %w(debian ubuntu redhat amazon).include? platform }
 end

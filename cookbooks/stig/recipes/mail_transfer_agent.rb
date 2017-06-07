@@ -10,7 +10,7 @@
 # Ubuntu 6.15
 
 source = ''
-if %w(rhel fedora centos x86_64-linux).include?(node['platform'])
+if %w(rhel fedora centos amazon).include?(node['platform'])
   source = 'etc_main.cf_rhel.erb'
 end
 

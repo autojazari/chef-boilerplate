@@ -15,7 +15,7 @@ if %w(debian ubuntu).include?(node['platform'])
   syslog_rules.concat(node['stig']['logging']['rsyslog_rules_debian'])
 end
 
-if %w(rhel fedora centos x86_64-linux).include?(node['platform'])
+if %w(rhel fedora centos amazon).include?(node['platform'])
   syslog_rules.concat(node['stig']['logging']['rsyslog_rules_rhel'])
 end
 

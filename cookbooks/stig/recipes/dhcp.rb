@@ -25,7 +25,7 @@ execute 'Disable dhcpd via sysctl' do
   action :run
   only_if "systemctl >/dev/null 2>&1 && /usr/bin/systemctl list-unit-files | grep -q 'dhcpd'"
   not_if "systemctl >/dev/null 2>&1 && /usr/bin/systemctl is-enabled dhcpd | grep -q 'disabled'"
-  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
   only_if { major_version >= 7 }
 end
 

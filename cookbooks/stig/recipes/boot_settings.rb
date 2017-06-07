@@ -44,27 +44,27 @@ execute 'update-grub' do
   only_if { %w(debian ubuntu).include? platform }
 end
 
-grub_file = %w(rhel fedora centos redhat).include?(platform) && major_version < 7 ? '/boot/grub/grub.conf' : '/boot/grub2/grub.cfg'
+grub_file = %w(rhel fedora centos redhat x86_64-linux).include?(platform) && major_version < 7 ? '/boot/grub/grub.conf' : '/boot/grub2/grub.cfg'
 
 # This is not scored (or even suggested by CIS) in Ubuntu
 file grub_file do
   owner 'root'
   group 'root'
   mode '0o600'
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
 end
 
 # 1.4.1
 execute 'Remove selinux=0 from grub file' do
   command "sed -i 's/selinux=0//' #{grub_file}"
   only_if "grep -q 'selinux=0' #{grub_file}"
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
 end
 
 execute 'Remove enforcing=0 from grub file' do
   command "sed -i 's/enforcing=0//' #{grub_file}"
   only_if "grep -q 'enforcing=0' #{grub_file}"
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
 end
 
 # 1.5.3
@@ -108,12 +108,12 @@ template '/etc/selinux/config' do
   mode 0o644
   sensitive true
   notifies :run, 'execute[toggle_selinux]', :delayed
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
 end
 
 link '/etc/sysconfig/selinux' do
   to '/etc/selinux/config'
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
 end
 
 template '/selinux/enforce' do
@@ -122,7 +122,7 @@ template '/selinux/enforce' do
   group 'root'
   variables(enforcing: (enabled_selinux ? 1 : 0))
   only_if { ::File.directory?('/selinux') }
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
   mode 0o644
 end
 
@@ -132,7 +132,7 @@ execute 'toggle_selinux' do
   command "setenforce #{(enabled_selinux ? 1 : 0)}"
   not_if "echo $(getenforce) | awk '{print tolower($0)}' | grep -q -E '(#{status_selinux}|disabled)'"
   ignore_failure true
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
 end
 
 # TODO: Ensure authentication required for single user mode for CentOS 7
@@ -141,7 +141,7 @@ template '/etc/sysconfig/init' do
   owner 'root'
   group 'root'
   mode 0o644
-  only_if { %w(rhel fedora centos redhat).include? platform }
+  only_if { %w(rhel fedora centos redhat x86_64-linux).include? platform }
   only_if { major_version < 7 }
 end
 

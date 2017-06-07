@@ -55,5 +55,5 @@ mount '/dev/shm' do
   options 'nodev,nosuid,noexec'
   enabled true
   action %i(mount enable)
-  only_if { %w(rhel fedora centos).include? platform }
+  only_if { %w(rhel fedora centos x86_64-linux).include? platform }
 end

@@ -23,7 +23,7 @@ template '/etc/rc.d/init.d/procps' do
   only_if { platform_family?('rhel', 'fedora', 'pld') }
 end
 
-service 'procps' do
-  supports :restart => true, :reload => true, :status => false
-  action :enable
-end
+# service 'procps' do
+#   supports :restart => true, :reload => true, :status => false
+#   action :enable
+# end

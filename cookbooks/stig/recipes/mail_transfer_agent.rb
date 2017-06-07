@@ -10,7 +10,7 @@
 # Ubuntu 6.15
 
 source = ''
-if %w(rhel fedora centos).include?(node['platform'])
+if %w(rhel fedora centos x86_64-linux).include?(node['platform'])
   source = 'etc_main.cf_rhel.erb'
 end
 
@@ -18,14 +18,14 @@ if %w(debian ubuntu).include?(node['platform'])
   source = 'etc_main.cf_ubuntu.erb'
 end
 
-template '/etc/postfix/main.cf' do
-  source source
-  owner 'root'
-  group 'root'
-  mode 0o644
-  notifies :restart, 'service[postfix]', :immediately
-end
+# template '/etc/postfix/main.cf' do
+#   source source
+#   owner 'root'
+#   group 'root'
+#   mode 0o644
+#   notifies :restart, 'service[postfix]', :immediately
+# end
 
-service 'postfix' do
-  action :nothing
-end
+# service 'postfix' do
+#   action :nothing
+# end

@@ -49,16 +49,16 @@ execute 'remount' do
   only_if { %w(debian ubuntu).include? platform }
 end
 
-# mount '/dev/shm' do
-#   fstype 'tmpfs'
-#   device 'none'
-#   options 'nodev,nosuid,noexec'
-#   enabled true
-#   action %i(mount enable)
-#   only_if { %w(rhel fedora centos amazon).include? platform }
-# end
-
 execute 'remount_dev_shm' do
   command 'mount -o remount,nodev,nosuid,noexec /dev/shm'
   only_if { %w(amazon).include? platform }
+end
+
+mount '/dev/shm' do
+  fstype 'tmpfs'
+  device 'none'
+  options 'nodev,nosuid,noexec'
+  enabled true
+  action %i(enable)
+  only_if { %w(rhel fedora centos amazon).include? platform }
 end

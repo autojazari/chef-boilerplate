@@ -24,3 +24,8 @@ ruby_block 'notify-apply-sysctl-params' do
   end
   notifies :run, 'ruby_block[apply-sysctl-params]', :immediately
 end
+
+execute 'reload_sysctl' do
+  command 'sysctl -p'
+  only_if { %w(amazon).include? platform }
+end

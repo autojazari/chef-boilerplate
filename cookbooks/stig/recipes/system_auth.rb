@@ -71,3 +71,21 @@ template '/etc/pam.d/common-password' do
   )
   only_if { %w(debian ubuntu).include? platform }
 end
+
+template '/etc/security/pwquality.conf' do
+  source 'etc_security_pwquality.erb'
+  owner 'root'
+  group 'root'
+  mode 0o644
+  variables(
+    pass_reuse_limit: pass_reuse_limit
+  )
+  only_if { %w(amazon).include? platform }
+end
+
+node['etc']['passwd'].each do |user, data|
+  execute 'set_password_inactivity_#{user}' do
+    command 'chage --inactive 30 #{user}'
+    only_if { %w(amazon).include? platform }
+  end
+end

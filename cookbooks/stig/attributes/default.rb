@@ -506,7 +506,7 @@ default['stig']['sshd_config']['key_regeneration_interval'] = 3600
 
 # The server disconnects after this time if the user has not	successfully logged
 # in.  If the value	is 0, there is no time limit. The default is 120 seconds.
-default['stig']['sshd_config']['login_grace_time'] = 120
+default['stig']['sshd_config']['login_grace_time'] = 60
 
 # Specifies the port	number that sshd listens on.  The default is
 # 22.  Multiple options of this type are permitted
@@ -535,7 +535,7 @@ default['stig']['sshd_config']['log_level'] = 'INFO'
 # Specifies the available MAC (message authentication code) algorithms.
 # The MAC algorithm	is used	in protocol version 2 for data integrity protection.
 # Multiple algorithms	must be	comma-separated.
-default['stig']['sshd_config']['macs'] = 'hmac-md5,hmac-sha1,hmac-ripemd160,hmac-sha1-96,hmac-md5-96'
+default['stig']['sshd_config']['macs'] = 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
 
 # Specifies the maximum number of concurrent	unauthenticated	connections to the
 # sshd daemon.  Additional connections will be dropped until authentication succeeds
@@ -674,7 +674,7 @@ default['stig']['sshd_config']['x_11_display_offset'] = 10
 # forwarding	X11 traffic, as	users can always install their own
 # forwarders.  X11 forwarding is automatically disabled if UseLogin
 # is	enabled.
-default['stig']['sshd_config']['x_11_forwarding'] = 'yes'
+default['stig']['sshd_config']['x_11_forwarding'] = 'no'
 
 # Specifies whether sshd should bind	the X11	forwarding server to
 # the loopback address or to	the wildcard address.  By default,

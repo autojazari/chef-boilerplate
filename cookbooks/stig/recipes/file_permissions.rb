@@ -79,3 +79,9 @@ end
 file '/etc/cron.deny' do
   action :delete
 end
+
+# sing command due to 
+# https://tickets.opscode.com/browse/CHEF-690
+execute 'update_log_file_perms' do
+  command 'find /var/log -type f -exec chmod g-wx,o-rwx {} +'
+end

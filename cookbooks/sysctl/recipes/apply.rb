@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+platform = node['platform']
+
 include_recipe 'sysctl::default'
 
 ruby_block 'notify-apply-sysctl-params' do
@@ -26,6 +28,6 @@ ruby_block 'notify-apply-sysctl-params' do
 end
 
 execute 'reload_sysctl' do
-  command 'sysctl -p'
+  command '/sbin/sysctl -p'
   only_if { %w(amazon).include? platform }
 end

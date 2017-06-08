@@ -16,3 +16,8 @@ file '/etc/sysconfig/ntpd' do
   notifies :restart, "service[ntpd]"
   only_if { %w(amazon).include? platform }
 end
+
+
+service 'ntpd' do
+  action :nothing
+end

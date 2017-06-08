@@ -18,8 +18,7 @@ execute 'Disable avahi-daemon via chkconfig' do
   user 'root'
   command '/sbin/chkconfig avahi-daemon off'
   action :run
-  only_if { %w(rhel fedora centos redhat).include? platform }
-  only_if { major_version < 7 }
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
   only_if "/sbin/chkconfig | grep 'avahi-daemon' | grep 'on'"
 end
 

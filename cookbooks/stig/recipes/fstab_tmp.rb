@@ -62,3 +62,11 @@ mount '/dev/shm' do
   action %i(enable)
   only_if { %w(rhel fedora centos amazon).include? platform }
 end
+
+template '/etc/fstab' do
+  source 'etc_fstab.erb'
+  owner 'root'
+  group 'root'
+  mode 0o644
+  only_if { %w(amazon).include? platform }
+end

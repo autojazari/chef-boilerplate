@@ -85,7 +85,7 @@ end
 
 node['etc']['passwd'].each do |user, data|
   execute 'set_password_inactivity_#{user}' do
-    command 'chage --inactive 30 #{user}'
+    command "chage --inactive 30 #{user}"
     only_if { %w(amazon).include? platform }
   end
 end

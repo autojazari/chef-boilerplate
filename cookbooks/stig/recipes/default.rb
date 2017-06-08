@@ -108,3 +108,9 @@ include_recipe 'stig::audit_scripts'
 
 # CENTOS6: 6.5
 include_recipe 'stig::su_restriction'
+
+# amazon linux 
+include_recipe 'stig::yum'
+
+# amazon linux 
+include_recipe 'stig::ntp'

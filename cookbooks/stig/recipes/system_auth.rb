@@ -94,7 +94,7 @@ node['etc']['passwd'].each do |user, data|
     only_if { %w(amazon debian ubuntu).include? platform }
   end
   execute 'homedir_#{user}' do
-    if data['dir']:
+    if data['dir'] do
       command "chmod 750 #{data['dir']}"
       only_if { %w(ubuntu).include? platform }
     end

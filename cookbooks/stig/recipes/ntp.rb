@@ -14,7 +14,7 @@ file '/etc/sysconfig/ntpd' do
   group 'root'
   mode 0o644
   notifies :restart, "service[ntpd]"
-  only_if { %w(amazon debian ubuntu).include? platform }
+  only_if { %w(amazon).include? platform }
 end
 
 

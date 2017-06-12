@@ -114,8 +114,9 @@ KerberosOrLocalPasswd <%= @kerberos_or_local_passwd %>
 
 KerberosTicketCleanup <%= @kerberos_ticket_cleanup %>
 
-KerberosUseKuserok <%= @kerberos_use_kuserok %>
-
+<% if node[:platform]=='amazon' -%>
+	KerberosUseKuserok <%= @kerberos_use_kuserok %>
+<% end -%>
 KeyRegenerationInterval <%= @key_regeneration_interval %>
 
 <% @port.each do |pr| -%>
@@ -165,7 +166,9 @@ RSAAuthentication <%= @rsa_authentication %>
 ServerKeyBits <%= @server_key_bits %>
 
 <% if !@show_patch_level.empty? -%>
-ShowPatchLevel <%= @show_patch_level %>
+	<% if node[:platform]=='amazon' -%>
+		ShowPatchLevel <%= @show_patch_level %>
+	<% end -%>
 <% end -%>
 
 StrictModes <%= @strict_modes %>

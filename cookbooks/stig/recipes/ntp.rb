@@ -5,7 +5,7 @@ template '/etc/ntp.conf' do
   owner 'root'
   group 'root'
   mode 0o644
-  only_if { %w(amazon).include? platform }
+  only_if { %w(amazon debian ubuntu).include? platform }
 end
 
 file '/etc/sysconfig/ntpd' do
@@ -14,7 +14,7 @@ file '/etc/sysconfig/ntpd' do
   group 'root'
   mode 0o644
   notifies :restart, "service[ntpd]"
-  only_if { %w(amazon).include? platform }
+  only_if { %w(amazon debian ubuntu).include? platform }
 end
 
 

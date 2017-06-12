@@ -1,0 +1,4 @@
+##### Ubuntu
+
+apt-get -y install curl
+curl -LO https://www.chef.io/chef/install.sh && bash ./install.sh && git clone https://github.com/autojazari/chef-boilerplate.git /root/chef-boilerplate && /opt/chef/bin/chef-solo -c /root/chef-boilerplate/config/solo.rb -j /root/chef-boilerplate/roles/cis.json

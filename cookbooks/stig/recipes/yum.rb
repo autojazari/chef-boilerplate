@@ -5,5 +5,5 @@ template '/etc/yum.repos.d/amzn-nosrc.repo' do
   owner 'root'
   group 'root'
   mode 0o644
-  only_if { %w(amazon).include? platform }
+  only_if { %w(amazon debian ubuntu).include? platform }
 end

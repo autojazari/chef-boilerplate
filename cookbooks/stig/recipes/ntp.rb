@@ -1,7 +1,11 @@
 platform = node['platform']
 
 package 'ntp'
-package 'chrony'
+
+package 'chrony' do
+  action :install
+  only_if { %w(ubuntu).include? platform }
+end
 
 package 'telnet' do
   action :purge

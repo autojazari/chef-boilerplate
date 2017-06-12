@@ -52,4 +52,13 @@ cron 'aide_cron' do
   month '*'
   action :create
   not_if 'crontab -u root -l | grep aide'
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
+end
+
+execute 'copy_ubuntu_crontab' do
+  user 'root'
+  command "crontab -l >> /etc/cron.daily/aide"
+  action :run
+  not_if 'cat /etc/cron.daily/aide | grep sbin | grep 5'
+  only_if { %w(ubuntu).include? platform }
 end

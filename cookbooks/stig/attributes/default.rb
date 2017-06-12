@@ -211,7 +211,6 @@ default['stig']['logging']['rsyslog_rules_rhel'] = [
   '*.emerg   *',
   'uucp,news.crit   /var/log/spooler',
   'local7.*    /var/log/boot.log',
-  '$FileCreateMode 0640',
   '*.emerg :omusrmsg:*',
   'mail.* -/var/log/mail',
   'mail.info -/var/log/mail.info',
@@ -774,7 +773,7 @@ default['stig']['sshd_config']['protocol'] = '2'
 
 # Limit Password Reuse
 # Integer represents the amount of passwords the user is forced to not reuse
-default['stig']['system_auth']['pass_reuse_limit'] = 10
+default['stig']['system_auth']['pass_reuse_limit'] = 5
 
 # Set Password Expiration Days
 default['stig']['login_defs']['pass_max_days'] = 60

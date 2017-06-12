@@ -9,6 +9,11 @@ require 'pathname'
 
 platform = node['platform']
 
+package 'libpam-pwquality' do
+  action :install
+  only_if { %w(debian ubuntu).include? platform }  
+end
+
 pass_reuse_limit = node['stig']['system_auth']['pass_reuse_limit']
 pamd_dir = '/etc/pam.d'
 
@@ -88,4 +93,9 @@ node['etc']['passwd'].each do |user, data|
     command "chage --inactive 30 #{user}"
     only_if { %w(amazon debian ubuntu).include? platform }
   end
+end
+
+execute 'default_user_mask' do
+  command 'echo "umask 027" >> /etc/profile'
+  not_if { 'cat /etc/profile | grep umask'}
 end

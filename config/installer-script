@@ -1,10 +1,10 @@
 ##### Ubuntu
 
-apt-get -y install openjdk-8-jre
+apt-get -y update && apt-get -y install openjdk-8-jre
 
 curl -LO https://www.chef.io/chef/install.sh && bash ./install.sh && git clone https://github.com/autojazari/chef-boilerplate.git /root/chef-boilerplate && /opt/chef/bin/chef-solo -c /root/chef-boilerplate/config/solo.rb -j /root/chef-boilerplate/roles/cis.json
 
-
+scp -r cis-cat-full ubuntu@ec2-52-203-168-180.compute-1.amazonaws.com:
 
 ./CIS-CAT.sh -b benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml -x
 

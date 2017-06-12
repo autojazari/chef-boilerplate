@@ -1,5 +1,13 @@
 platform = node['platform']
 
+package 'ntp'
+package 'chrony'
+
+package 'telnet' do
+  action :remove
+end
+
+
 template '/etc/ntp.conf' do
   source 'etc_ntp_conf.erb'
   owner 'root'
@@ -16,7 +24,6 @@ file '/etc/sysconfig/ntpd' do
   notifies :restart, "service[ntpd]"
   only_if { %w(amazon).include? platform }
 end
-
 
 service 'ntpd' do
   action :nothing

@@ -72,16 +72,14 @@ password = node['stig']['grub']['hashedpassword']
 execute 'Add MD5 password to grub' do
   command "sed -i '11i password --md5 #{password}' #{grub_file}"
   not_if "grep -q '#{password}' #{grub_file}"
-  only_if { %w(rhel fedora centos redhat).include? platform }
-  only_if { major_version < 7 }
+  only_if { %w(rhel fedora centos redhat amazon ubuntu).include? platform }
   only_if { node['stig']['grub']['hashedpassword'] != '' }
 end
 
 execute 'Add password to grub' do
   command "sed -i '/password/d' #{grub_file}"
   only_if "grep -q 'password' #{grub_file}"
-  only_if { %w(rhel fedora centos redhat).include? platform }
-  only_if { major_version < 7 }
+  only_if { %w(rhel fedora centos redhat amazon ubuntu).include? platform }
   only_if { node['stig']['grub']['hashedpassword'] == '' }
 end
 
@@ -90,8 +88,7 @@ end
 
 cookbook_file '/etc/inittab' do
   source 'etc_inittab'
-  only_if { %w(rhel fedora centos redhat).include? platform }
-  only_if { major_version < 7 }
+  only_if { %w(rhel fedora centos redhat amazon ubuntu).include? platform }
 end
 
 enabled_selinux = node['stig']['selinux']['enabled']
@@ -151,4 +148,22 @@ end
 
 package 'mcstrans' do
   action :remove
+end
+
+source = ''
+if %w(rhel fedora centos amazon).include?(node['platform'])
+  source = 'etc_default_grub_rhel.erb'
+end
+
+if %w(debian ubuntu).include?(node['platform'])
+  source = 'etc_default_grub_ubuntu.erb'
+end
+
+template '/selinux/enforce' do
+  source source
+  owner 'root'
+  group 'root'
+  mode 0o644
+  only_if { %w(ubuntu).include? platform }
+  notifies :run, 'execute[update-grub]', :immediately
 end

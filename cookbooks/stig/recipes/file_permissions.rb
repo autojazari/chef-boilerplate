@@ -50,6 +50,15 @@ end
   end
 end
 
+%w(/etc/shadow /etc/gshadow).each do |f|
+  file f do
+    owner 'root'
+    group 'shadow'
+    mode 0o000
+  end
+  only_if { %w(debian ubuntu).include? node['platform'] }
+end
+
 %w(/etc/passwd /etc/group).each do |f|
   file f do
     owner 'root'

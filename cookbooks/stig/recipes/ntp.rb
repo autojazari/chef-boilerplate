@@ -21,18 +21,18 @@ template '/etc/ntp.conf' do
   only_if { %w(amazon debian ubuntu).include? platform }
 end
 
-file '/etc/sysconfig/ntpd' do
-  content 'OPTIONS="-u ntp:ntp"'
-  owner 'root'
-  group 'root'
-  mode 0o644
-  notifies :restart, "service[ntpd]"
-  only_if { %w(amazon).include? platform }
-end
+# file '/etc/sysconfig/ntpd' do
+#   content 'OPTIONS="-u ntp:ntp"'
+#   owner 'root'
+#   group 'root'
+#   mode 0o644
+#   notifies :restart, "service[ntpd]"
+#   only_if { %w(amazon).include? platform }
+# end
 
-service 'ntpd' do
-  action :nothing
-end
+# service 'ntpd' do
+#   action :nothing
+# end
 
 # execute 'copy_ubuntu_crontab' do
 #   user 'root'

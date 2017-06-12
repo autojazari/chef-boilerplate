@@ -93,12 +93,6 @@ node['etc']['passwd'].each do |user, data|
     command "chage --inactive 30 #{user}"
     only_if { %w(amazon debian ubuntu).include? platform }
   end
-  execute 'homedir_#{user}' do
-    if data['dir']
-      command "chmod 750 #{data['dir']}"
-      only_if { %w(ubuntu).include? platform }
-    end
-  end
 end
 
 # 

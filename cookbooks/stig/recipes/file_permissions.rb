@@ -55,8 +55,8 @@ end
     owner 'root'
     group 'shadow'
     mode 0o000
+    only_if { %w(debian ubuntu).include? node['platform'] }
   end
-  only_if { %w(debian ubuntu).include? node['platform'] }
 end
 
 %w(/etc/passwd /etc/group).each do |f|

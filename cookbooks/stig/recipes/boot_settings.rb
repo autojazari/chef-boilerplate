@@ -159,7 +159,7 @@ if %w(debian ubuntu).include?(node['platform'])
   source = 'etc_default_grub_ubuntu.erb'
 end
 
-template '/selinux/enforce' do
+template '/etc/default/grub' do
   source source
   owner 'root'
   group 'root'

@@ -4,7 +4,8 @@ package 'ntp'
 package 'chrony'
 
 package 'telnet' do
-  action :remove
+  action :purge
+  only_if { %w(ubuntu).include? platform }
 end
 
 
@@ -28,3 +29,11 @@ end
 service 'ntpd' do
   action :nothing
 end
+
+# execute 'copy_ubuntu_crontab' do
+#   user 'root'
+#   command "crontab -l >> /etc/cron.daily/aide"
+#   action :run
+#   not_if 'cat /etc/cron.daily/aide | grep sbin | grep 5'
+#   only_if { %w(ubuntu).include? platform }
+# end

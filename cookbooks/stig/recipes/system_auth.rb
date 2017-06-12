@@ -66,7 +66,7 @@ link password_auth_symlink do
   only_if { File.symlink?(password_auth_symlink) && password_auth_symlink != password_auth_file }
 end
 
-template '/etc/pam.d/common-password' do
+template '/etc/pam.d/common-passwd' do
   source 'etc_pam.d_common-password.erb'
   owner 'root'
   group 'root'
@@ -93,9 +93,21 @@ node['etc']['passwd'].each do |user, data|
     command "chage --inactive 30 #{user}"
     only_if { %w(amazon debian ubuntu).include? platform }
   end
+  execute 'homedir_#{user}' do
+    if data['dir']:
+      command "chmod 750 #{data['dir']}"
+      only_if { %w(ubuntu).include? platform }
+    end
+  end
+end
+
+# 
+execute 'useradd_mask' do
+  command 'useradd -D -f 30'
+  only_if { %w(debian ubuntu).include? platform }
 end
 
 execute 'default_user_mask' do
   command 'echo "umask 027" >> /etc/profile'
-  not_if { 'cat /etc/profile | grep umask'}
+  not_if 'cat /etc/profile | grep umask'
 end

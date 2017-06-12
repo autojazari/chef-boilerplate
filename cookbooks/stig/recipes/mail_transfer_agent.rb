@@ -9,6 +9,8 @@
 # CENTOS6: 3.16
 # Ubuntu 6.15
 
+platform = node['platform']
+
 source = ''
 if %w(rhel fedora centos amazon).include?(node['platform'])
   source = 'etc_main.cf_rhel.erb'

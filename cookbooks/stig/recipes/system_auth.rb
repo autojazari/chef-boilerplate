@@ -98,10 +98,9 @@ end
 # 
 execute 'useradd_mask' do
   command 'useradd -D -f 30'
-  only_if { %w(debian ubuntu).include? platform }
 end
 
 execute 'default_user_mask' do
   command 'echo "umask 027" >> /etc/profile'
-  not_if 'cat /etc/profile | grep umask'
+  not_if 'cat /etc/profile | grep 027'
 end

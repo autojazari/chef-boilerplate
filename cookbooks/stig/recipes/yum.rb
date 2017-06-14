@@ -7,7 +7,3 @@ template '/etc/yum.repos.d/amzn-nosrc.repo' do
   mode 0o644
   only_if { %w(amazon).include? platform }
 end
-
-execute 'remove xorg-x11*' do
-	command 'yum -y remove xorg-x11*'
-end

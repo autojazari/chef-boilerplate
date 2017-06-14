@@ -39,6 +39,14 @@ template '/etc/grub.d/40_custom' do
   only_if { %w(debian ubuntu).include? platform }
 end
 
+template '/etc/grub/menu.lst' do
+  source 'etc_grub_menu_lst.erb'
+  owner 'root'
+  group 'root'
+  mode '0o600'
+  only_if { %w(rhel fedora centos redhat amazon).include? platform }
+end
+
 execute 'update-grub' do
   action :nothing
   only_if { %w(debian ubuntu).include? platform }

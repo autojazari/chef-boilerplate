@@ -23,3 +23,8 @@ package 'whoopsie' do
 end
 
 include_recipe 'sysctl::apply'
+
+template '/etc/sysctl.conf' do
+  source 'etc_sysctl.conf_rhel.erb'
+  mode '0644'
+end

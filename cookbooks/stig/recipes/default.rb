@@ -101,7 +101,7 @@ include_recipe 'stig::file_permissions'
 # UBUNTU: 12.7, 12.8, 12.9, 13.1, 13.2, 13.3, 13.4, 13.5
 include_recipe 'stig::audits'
 include_recipe 'stig::auditd'
-include_recipe 'stig::audit_rules'
+include_recipe 'stig::auditd_rules'
 include_recipe 'stig::audit_scripts'
 
 # CENTOS6: 6.5

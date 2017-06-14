@@ -19,3 +19,7 @@ template File.join(auditd_config_dir, 'auditd.conf') do
   mode 0o640
   notifies :reload, 'service[auditd]', :immediately
 end
+
+service 'auditd' do
+  action :nothing
+end

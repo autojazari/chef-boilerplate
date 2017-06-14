@@ -8,6 +8,6 @@ template '/etc/yum.repos.d/amzn-nosrc.repo' do
   only_if { %w(amazon).include? platform }
 end
 
-command 'remove xorg-x11*' do
-	execute 'yum -y remove xorg-x11* && yum install -y java-1.7.0-openjdk'
+execute 'remove xorg-x11*' do
+	command 'yum -y remove xorg-x11* && yum install -y java-1.7.0-openjdk'
 end

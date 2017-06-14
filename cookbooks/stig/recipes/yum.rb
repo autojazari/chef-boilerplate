@@ -9,5 +9,5 @@ template '/etc/yum.repos.d/amzn-nosrc.repo' do
 end
 
 execute 'remove xorg-x11*' do
-	command 'yum -y remove xorg-x11* && yum install -y java-1.7.0-openjdk'
+	command 'yum -y remove xorg-x11*'
 end

@@ -8,13 +8,14 @@ curl -LO https://www.chef.io/chef/install.sh && bash ./install.sh && git clone h
 
 scp -r cis-cat-full ubuntu@ec2-54-242-139-82.compute-1.amazonaws.com:
 
-./CIS-CAT.sh -b benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml -x
-
+./CIS-CAT.sh -b benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml -x -a
 
 
 ## Amazon Linux
 
+curl -LO https://www.chef.io/chef/install.sh && bash ./install.sh && git clone https://github.com/autojazari/chef-boilerplate.git /root/chef-boilerplate
+
 /opt/chef/bin/chef-solo -c /root/chef-boilerplate/config/solo.rb -j /root/chef-boilerplate/roles/cis.json
 
 
-./CIS-CAT.sh -b benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml -x
+./CIS-CAT.sh -b benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml -x -a

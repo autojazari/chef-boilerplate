@@ -100,10 +100,8 @@ include_recipe 'stig::file_permissions'
 # CENTOS6: 9.1.10, 9.1.11, 9.1.12, 9.2.1, 9.2.2, 9.2.3, 9.2.4, 9.2.5
 # UBUNTU: 12.7, 12.8, 12.9, 13.1, 13.2, 13.3, 13.4, 13.5
 include_recipe 'stig::audits'
-
-# RHEL6: 9.1.12, 9.1.13, 9.2.6, 9.2.10, 9.2.11, 9.2.12, 9.2.15, 9.2.16, 9.2.18, 9.2.19
-# CENTOS6: 9.1.13, 9.1.14, 9.2.6, 9.2.10, 9.2.11, 9.2.12, 9.2.14, 9.2.15, 9.2.16, 9.2.17
-# UBUNTU: 12.10, 12.11, 13.6, 13.10, 13.11, 13.12, 13.14, 13.15, 13.16, 13.17
+include_recipe 'stig::auditd'
+include_recipe 'stig::audit_rules'
 include_recipe 'stig::audit_scripts'
 
 # CENTOS6: 6.5

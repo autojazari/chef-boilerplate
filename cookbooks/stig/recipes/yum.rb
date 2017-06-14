@@ -7,3 +7,7 @@ template '/etc/yum.repos.d/amzn-nosrc.repo' do
   mode 0o644
   only_if { %w(amazon).include? platform }
 end
+
+package 'xorg-x11*' do
+	action :remove
+end

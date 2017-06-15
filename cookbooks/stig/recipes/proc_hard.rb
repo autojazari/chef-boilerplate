@@ -27,4 +27,5 @@ include_recipe 'sysctl::apply'
 template '/etc/sysctl.conf' do
   source 'etc_sysctl.conf_rhel.erb'
   mode '0644'
+  only_if { %w(amazon).include? node['platform'] }
 end

@@ -112,3 +112,16 @@ template '/etc/profile' do
   group 'root'
   mode 0o644
 end
+
+if %w(rhel fedora centos amazon).include?(node['platform'])
+  source = 'etc_bashrc_rhel.erb'
+else
+  source = 'etc_bashrc_ubuntu.erb'
+end
+
+template '/etc/bashrc' do
+  source source
+  owner 'root'
+  group 'root'
+  mode 0o644
+end

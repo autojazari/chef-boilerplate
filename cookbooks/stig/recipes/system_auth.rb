@@ -100,7 +100,15 @@ execute 'useradd_mask' do
   command 'useradd -D -f 30'
 end
 
-execute 'default_user_mask' do
-  command 'echo "umask 027" >> /etc/profile'
-  not_if 'cat /etc/profile | grep 027'
+if %w(rhel fedora centos amazon).include?(node['platform'])
+  source = 'etc_profile_rhel.erb'
+else
+  source = 'etc_profile_ubuntu.erb'
+end
+
+template '/etc/profile' do
+  source source
+  owner 'root'
+  group 'root'
+  mode 0o644
 end

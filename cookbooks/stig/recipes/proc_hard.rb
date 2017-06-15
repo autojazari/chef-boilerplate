@@ -29,3 +29,17 @@ template '/etc/sysctl.conf' do
   mode '0644'
   only_if { %w(amazon).include? node['platform'] }
 end
+
+commands = [
+  'sysctl -w net.ipv4.conf.all.secure_redirects=0',
+  'sysctl -w net.ipv4.conf.all.accept_redirects=0',
+  'sysctl -w net.ipv4.conf.default.secure_redirects=0',
+  'sysctl -w net.ipv4.conf.default.accept_redirects=0',
+  'sysctl -w net.ipv4.ip_forward=0',
+  'sysctl -w net.ipv4.route.flush=1']
+
+commands.each_with_index {|cmd, index|
+  execute "#{index}" do
+    command "#{cmd}"
+  end
+}

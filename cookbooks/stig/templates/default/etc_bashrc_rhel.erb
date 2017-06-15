@@ -65,7 +65,7 @@ if ! shopt -q login_shell ; then # We're not a login shell
     if [ $UID -gt 199 ] && [ "`id -gn`" = "`id -un`" ]; then
        umask 027
     else
-       umask 207
+       umask 027
     fi
 
     # Only display echos from profile.d scripts if we are no login shell

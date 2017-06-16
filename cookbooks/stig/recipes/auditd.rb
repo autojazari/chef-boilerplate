@@ -20,6 +20,11 @@ template File.join(auditd_config_dir, 'auditd.conf') do
   notifies :reload, 'service[auditd]', :immediately
 end
 
+execute 'enable auditd' do
+  command 'update-rc.d auditd enable'
+  only_if { %w(ubuntu).include? node['platform'] }
+end
+
 service 'auditd' do
   action :nothing
 end

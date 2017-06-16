@@ -35,6 +35,10 @@ commands = [
   'sysctl -w net.ipv4.conf.all.accept_redirects=0',
   'sysctl -w net.ipv4.conf.default.secure_redirects=0',
   'sysctl -w net.ipv4.conf.default.accept_redirects=0',
+  'sysctl -w net.ipv4.conf.all.accept_source_route=0',
+  'sysctl -w net.ipv4.conf.default.accept_source_route=0',
+  'sysctl -w net.ipv6.conf.all.accept_ra=0',
+  'sysctl -w net.ipv6.conf.default.accept_ra=0',
   'sysctl -w net.ipv4.ip_forward=0',
   'sysctl -w net.ipv4.route.flush=1']
 

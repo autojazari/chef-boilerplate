@@ -60,7 +60,7 @@ mount '/dev/shm' do
   options 'nodev,nosuid,noexec'
   enabled true
   action %i(enable)
-  only_if { %w(rhel fedora centos amazon).include? platform }
+  only_if { %w(rhel fedora centos amazon ubuntu).include? platform }
 end
 
 template '/etc/fstab' do

@@ -3,7 +3,7 @@
 #
 # Use grub-mkpasswd-pbkdf2 for Ubuntu. This is hashed 'ChangeMe':
 # grub.pbkdf2.sha512.10000.018CE115164107059077A[... cut for brevity ...]525DE71E3FF5FC734461C6
-default['stig']['grub']['hashedpassword'] = ''
+default['stig']['grub']['hashedpassword'] = 'Len0V0S0ftware!'
 
 # Set hard core to 0 according to CIS 1.5.1
 default['stig']['limits'] = [
@@ -63,6 +63,8 @@ default['stig']['auditd']['rules'] = [
   '-w /etc/issue -p wa -k system-locale',
   '-w /etc/issue.net -p wa -k system-locale',
   '-w /etc/hosts -p wa -k system-locale',
+  '-w /etc/network -p wa -k system-locale',
+  '-w /etc/networks -p wa -k system-locale',
   '-w /etc/sysconfig/network -p wa -k system-locale',
   '-w /etc/selinux/ -p wa -k MAC-policy',
   '-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod',
@@ -71,10 +73,16 @@ default['stig']['auditd']['rules'] = [
   '-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod',
   '-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod',
   '-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod',
+  '-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod', 
+  '-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod',
   '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access',
   '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access',
   '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access',
   '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access',
+  '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access', 
+  '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access',
+  '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access',
+  '-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access',
   '-a always,exit -F path=/bin/ping -F perm=x -F auid>=500 -F auid!=4294967295 -k privileged',
   '-a always,exit -F arch=b32 -S mount -F auid>=500 -F auid!=4294967295 -k export',
   '-a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295 -k export',
@@ -83,14 +91,19 @@ default['stig']['auditd']['rules'] = [
   '-w /etc/sudoers.d -p wa -k scope',
   '-w /var/log/faillog -p wa -k logins',
   '-w /var/log/lastlog -p wa -k logins',
+  '-w /var/log/tallylog -p wa -k logins',
   '-w /var/run/faillock/ -p wa -k logins',
   '-w /var/log/btmp -p wa -k session',
   '-w /var/run/utmp -p wa -k session',
   '-w /var/log/wtmp -p wa -k session',
   '-a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295 -k mounts',
   '-a always,exit -F arch=b32 -S mount -F auid>=500 -F auid!=4294967295 -k mounts',
+  '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts', 
+  '-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts',
   '-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete',
   '-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete',
+  '-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete', 
+  '-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete',
   '-w /var/log/sudo.log -p wa -k actions',
   '-w /sbin/insmod -p x -k modules',
   '-w /sbin/rmmod -p x -k modules',

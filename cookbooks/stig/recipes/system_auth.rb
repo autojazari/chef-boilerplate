@@ -100,28 +100,30 @@ execute 'useradd_mask' do
   command 'useradd -D -f 30'
 end
 
-if %w(rhel fedora centos amazon).include?(node['platform'])
-  source = 'etc_profile_rhel.erb'
-else
-  source = 'etc_profile_ubuntu.erb'
-end
+# if %w(rhel fedora centos amazon).include?(node['platform'])
+#   source = 'etc_profile_rhel.erb'
+# else
+#   source = 'etc_profile_ubuntu.erb'
+# end
 
 template '/etc/profile' do
-  source source
+  source 'etc_profile_rhel.erb'
   owner 'root'
   group 'root'
   mode 0o644
+  only_if { %w(amazon debian ubuntu).include? platform }
 end
 
-if %w(rhel fedora centos amazon).include?(node['platform'])
-  source = 'etc_bashrc_rhel.erb'
-else
-  source = 'etc_bashrc_ubuntu.erb'
-end
+# if %w(rhel fedora centos amazon).include?(node['platform'])
+#   source = 'etc_bashrc_rhel.erb'
+# else
+#   source = 'etc_bashrc_ubuntu.erb'
+# end
 
 template '/etc/bashrc' do
-  source source
+  source 'etc_bashrc_rhel.erb'
   owner 'root'
   group 'root'
   mode 0o644
+  only_if { %w(amazon debian ubuntu).include? platform }
 end

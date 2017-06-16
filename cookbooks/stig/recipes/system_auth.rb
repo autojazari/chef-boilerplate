@@ -146,5 +146,4 @@ bash 'system_account_non_login' do
     fi
     done
     EOH
-  not_if { ::File.exist?(extract_path) }
 end

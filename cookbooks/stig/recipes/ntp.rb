@@ -21,7 +21,7 @@ template '/etc/ntp.conf' do
   only_if { %w(amazon debian ubuntu).include? platform }
 end
 
-template '/etc/chonry/chrony.conf' do
+file '/etc/chonry/chrony.conf' do
   content 'server 0.amazon.pool.ntp.org'
   owner 'root'
   group 'root'

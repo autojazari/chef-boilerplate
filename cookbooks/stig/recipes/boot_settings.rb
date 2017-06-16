@@ -52,7 +52,7 @@ execute 'update-grub' do
   only_if { %w(debian ubuntu).include? platform }
 end
 
-grub_file = %w(rhel fedora centos redhat amazon).include?(platform) && major_version < 7 ? '/boot/grub/grub.conf' : '/boot/grub2/grub.cfg'
+grub_file = %w(rhel fedora centos redhat amazon).include?(platform) && major_version < 7 ? '/boot/grub/grub.conf' : '/boot/grub/grub.cfg'
 
 # This is not scored (or even suggested by CIS) in Ubuntu
 file grub_file do

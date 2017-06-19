@@ -54,6 +54,6 @@ commands.each_with_index {|cmd, index|
   end
 }
 
-iptables_rule 'cis_iptables' do
-  action :enable
-end
+# iptables_rule 'cis_iptables' do
+#   action :enable
+# end

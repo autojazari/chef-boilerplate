@@ -54,21 +54,6 @@ commands.each_with_index {|cmd, index|
   end
 }
 
-commands = [
-  'iptables -P INPUT DROP',
-  'iptables -P OUTPUT DROP',
-  'iptables -A INPUT -i lo -j ACCEPT',
-  'iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT',
-  'iptables -A OUTPUT -o lo -j ACCEPT',
-  'iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT',
-  'iptables -A INPUT -i lo -j ACCEPT',
-  'iptables -A OUTPUT -o lo -j ACCEPT',
-  'iptables -A INPUT -s 127.0.0.0/8 -j DROP',
-  'iptables-save'
-]
-
-commands.each_with_index {|cmd, index|
-  execute "#{index}" do
-    command "#{cmd}"
-  end
-}
+iptables_rule 'cis_iptables' do
+  action :enable
+end

@@ -129,6 +129,6 @@ template '/etc/bashrc' do
 end
 
 execute 'set_umask_ubuntu' do
-  command "echo 'umask' >> /etc/bash.bashrc"
+  command "echo 'umask 027' >> /etc/bash.bashrc"
   not_if 'cat /etc/bash.bashrc | grep umask'
 end

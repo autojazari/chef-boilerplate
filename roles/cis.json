@@ -2,6 +2,7 @@
   "name": "cis",
   "description": "",
   "run_list": [
+  	 "iptables",
      "stig"
   ]
 }

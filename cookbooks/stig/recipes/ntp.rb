@@ -49,3 +49,10 @@ end
 #   not_if 'cat /etc/cron.daily/aide | grep sbin | grep 5'
 #   only_if { %w(ubuntu).include? platform }
 # end
+
+# update-grub
+execute 'update_grub' do
+  user 'root'
+  command "update-grub"
+  action :run
+end

@@ -132,18 +132,3 @@ execute 'set_umask_ubuntu' do
   command "echo 'umask' >> /etc/bash.bashrc"
   not_if 'cat /etc/bash.bashrc | grep umask'
 end
-
-# bash 'system_account_non_login' do
-#   cwd '/root'
-#   code <<-EOH
-#     #!/bin/bash
-#     for user in `awk -F: '($3 < 1000) {print $1 }' /etc/passwd`; do
-#     if [ $user != "root" ]; then
-#     usermod -L $user
-#     if [ $user != "sync" ] && [ $user != "shutdown" ] && [ $user != "halt" ]; then
-#     usermod -s /usr/sbin/nologin $user
-#     fi
-#     fi
-#     done
-#     EOH
-# end

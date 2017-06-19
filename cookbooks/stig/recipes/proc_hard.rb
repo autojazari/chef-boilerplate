@@ -30,6 +30,12 @@ template '/etc/sysctl.conf' do
   only_if { %w(amazon).include? node['platform'] }
 end
 
+template '/etc/sysctl.conf' do
+  source 'etc_sysctl.conf_ubuntu.erb'
+  mode '0644'
+  only_if { %w(ubuntu).include? node['platform'] }
+end
+
 commands = [
   'sysctl -w net.ipv4.conf.all.secure_redirects=0',
   'sysctl -w net.ipv4.conf.all.accept_redirects=0',
@@ -41,6 +47,25 @@ commands = [
   #'sysctl -w net.ipv6.conf.default.accept_ra=0',
   'sysctl -w net.ipv4.ip_forward=0',
   'sysctl -w net.ipv4.route.flush=1']
+
+commands.each_with_index {|cmd, index|
+  execute "#{index}" do
+    command "#{cmd}"
+  end
+}
+
+commands = [
+  'iptables -P INPUT DROP',
+  'iptables -P OUTPUT DROP',
+  'iptables -A INPUT -i lo -j ACCEPT',
+  'iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT',
+  'iptables -A OUTPUT -o lo -j ACCEPT',
+  'iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT',
+  'iptables -A INPUT -i lo -j ACCEPT',
+  'iptables -A OUTPUT -o lo -j ACCEPT',
+  'iptables -A INPUT -s 127.0.0.0/8 -j DROP',
+  'iptables-save'
+]
 
 commands.each_with_index {|cmd, index|
   execute "#{index}" do

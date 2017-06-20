@@ -29,30 +29,10 @@ file '/etc/chrony/chrony.conf' do
   only_if { %w(debian ubuntu).include? platform }
 end
 
-# file '/etc/sysconfig/ntpd' do
-#   content 'OPTIONS="-u ntp:ntp"'
-#   owner 'root'
-#   group 'root'
-#   mode 0o644
-#   notifies :restart, "service[ntpd]"
-#   only_if { %w(amazon).include? platform }
-# end
-
-# service 'ntpd' do
-#   action :nothing
-# end
-
-# execute 'copy_ubuntu_crontab' do
-#   user 'root'
-#   command "crontab -l >> /etc/cron.daily/aide"
-#   action :run
-#   not_if 'cat /etc/cron.daily/aide | grep sbin | grep 5'
-#   only_if { %w(ubuntu).include? platform }
-# end
-
 # update-grub
 execute 'update_grub' do
   user 'root'
   command "update-grub"
   action :run
+  only_if { %w(debian ubuntu).include? platform }
 end
